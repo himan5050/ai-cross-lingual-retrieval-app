@@ -1,0 +1,81 @@
+candidate_sites:
+  - afghanistan
+  - combodia
+  - eca
+  - india
+  - indonesia
+  - laos
+  - malaysia
+  - myanmar
+  - philippines
+  - thailand
+  - vietnam
+  - global
+
+# Default site to use if no site is specified
+default_site: global
+
+# List of supported languages
+supported_languages:
+  - en
+  - fr
+  - es
+  - pt
+  - id
+  - ms
+  - vi
+  - th
+  - km
+  - lo
+  - my
+  - hi
+  - bn
+  - gu
+  - ta
+
+# Default language to use if no language is specified
+default_language: en
+
+# Embedding model configuration
+embedding_models:
+  name: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"  # Pre-trained model name from Hugging Face
+  version: "2.3.0"
+  batch_size: 32  # Batch size for embedding generation to optimize performance and memory usage
+  max_length: 512  # Maximum token length for the embedding model
+  device: "cuda"  # Device to run the embedding model on (e.g., "cuda" for GPU, "cpu" for CPU)
+  cache_dir: "./models"  # Directory to cache the embedding model
+  use_auth_token: false  # Whether to use an authentication token for private models
+  normalize_embeddings: true  # Whether to normalize embeddings to unit length
+  embedding_dim: 384  # Dimensionality of the embedding vectors produced by the model
+  index_type: "faiss"  # Type of vector index to use (e.g., "faiss", "annoy", "hnswlib")
+  index_path: "./indexes"  # Directory to store the vector index files
+  index_metric: "cosine"  # Metric to use for the vector index (e.g., "cosine", "euclidean")
+  index_nlist: 100  # Number of clusters for the vector index (specific to FAISS)
+  index_m: 16  #
+  index_ef_construction: 200  # Parameter for HNSW index construction
+  index_ef_search: 50  # Parameter for HNSW index search
+  index_num_trees: 10  # Number of trees for Annoy index
+  index_search_k: -1  # Search parameter for Annoy index (-1 for default
+
+  index_rebuild: false  # Whether to rebuild the index from scratch
+  index_load: true  # Whether to load the index from disk if it exists
+  index_save: true  # Whether to save the index to disk after building  
+
+# Parameters for batch processing of documents
+batch_processing:
+  chunk_size: 500  # Number of documents to process in each batch
+  max_retries: 3  # Maximum number of retries for failed batch processing
+  retry_delay: 5  # Delay (in seconds) between retries
+
+# Logging configuration
+logging:
+  level: "INFO"  # Logging level (e.g., "DEBUG", "INFO", "WARNING", "ERROR")
+  log_to_file: true  # Whether to log messages to a file
+  log_file_path: "./logs/app.log"  # Path to the log file
+  max_log_file_size: 10485760  # Maximum size of the log file in bytes (10 MB)
+  backup_count: 5  # Number of backup log files to keep when rotating
+  log_format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"  # Format for log messages
+  date_format: "%Y-%m-%d %H:%M:%S"  #
+
+
+
