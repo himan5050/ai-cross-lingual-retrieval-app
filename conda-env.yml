@@ -1,0 +1,42 @@
+name: cross-lingual-semantic-search
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      # Core ML
+      - torch==2.2.2
+      - torchvision==0.17.2
+      - torchaudio==2.2.2
+      - sentence-transformers==2.7.0
+      - transformers==4.41.2
+
+      # Vector DB (CPU version)
+      - faiss-cpu==1.7.4
+      # For GPU-enabled FAISS (uncomment next line if you have CUDA):
+      # - faiss-gpu==1.7.4
+
+      # Data handling
+      - pandas==2.2.2
+      - numpy==1.26.4
+
+      # Text preprocessing
+      - nltk==3.9
+      - beautifulsoup4==4.12.3
+      - regex==2024.5.15
+
+      # Translation (optional for baseline MT)
+      - deep-translator==1.11.4
+
+      # Jupyter environment
+      - jupyter==1.0.0
+      - ipykernel==6.29.5
+
+      # --- Optional: GPU-specific torch builds (if CUDA is installed) ---
+      # If you have NVIDIA GPU + CUDA 11.8:
+      # - torch==2.2.2+cu118
+      # - torchvision==0.17.2+cu118
+      # - torchaudio==2.2.2+cu118
+      # (install with: pip install torch==2.2.2+cu118 torchvision==0.17.2+cu118 torchaudio==2.2.2+cu118 -f https://download.pytorch.org/whl/torch_stable.html)
