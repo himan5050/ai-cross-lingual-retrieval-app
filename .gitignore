@@ -154,11 +154,9 @@ venv.bak/
 # mkdocs documentation
 /site
 logs/
-data/
-data/embeddings/*
-datasets/*
-results/*
-files/
+shared-data-library/
+dataset/
+pipelines/data/
 
 # mypy
 .mypy_cache/

@@ -1,0 +1,43 @@
+# models.yml
+defaults:
+  device: auto           # auto | cpu | cuda
+  mixed_precision: auto  # auto -> fp16 on GPU, fp32 on CPU
+  batch_size:
+    cpu: 96
+    gpu: 768
+  headroom_tokens: 16    # reserve tokens below model_max_length
+  l2_normalize: true
+  bettertransformer: true
+
+models:
+  minilm:
+    label: "Multilingual MiniLM (fast, 384d)"
+    hf_id: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    dim: 384
+    needs_prefix: false
+    enabled: true
+
+  me5_base:
+    label: "mE5-Base (balanced, 768d)"
+    hf_id: "intfloat/multilingual-e5-base"
+    dim: 768
+    needs_prefix: true
+    doc_prefix: "passage: "
+    query_prefix: "query: "
+    enabled: true
+
+  me5_large:
+    label: "mE5-Large (accurate, 1024d)"
+    hf_id: "intfloat/multilingual-e5-large"
+    dim: 1024
+    needs_prefix: true
+    doc_prefix: "passage: "
+    query_prefix: "query: "
+    enabled: false   # flip on when you want to try it
+
+  labse:
+    label: "LaBSE (multilingual, 768d)"
+    hf_id: "sentence-transformers/LaBSE"
+    dim: 768
+    needs_prefix: false
+    enabled: false
