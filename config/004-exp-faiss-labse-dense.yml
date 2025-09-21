@@ -1,0 +1,89 @@
+# Base configuration file.
+experiment:
+  name: exp-labse-faiss
+  seed: 42
+
+# Setup input and output path variables.
+paths:
+  raw_data_filepath: data/humanitarian/
+  processed_jsonl: artifacts/shared/docs__processed_chunked_cleaned.jsonl
+  embeddings_npy: artifacts/embeddings/labse-embedded.npy
+  metadata_table: artifacts/shared/docs__metadata.parquet
+  faiss_index: artifacts/indexes/labse-indexed.faiss
+  es_index_name: clir_docs
+
+# Document ingestion.
+ingest:
+  text_col: text
+  title_col: title
+  lang_col: lang
+  chunksize: 10000
+  encoding: utf-8
+  min_chars: 50
+  max_chars: 200000
+  dedup: true
+
+# Preprocessing.
+preprocess:
+  lowercase: true
+  strip_html: true
+  remove_urls: true
+  remove_emails: true
+  keep_punct: true
+  keep_digits: false
+  collapse_whitespace: true
+  unicode_form: NFKC
+  detect_language: true
+  use_stopwords: true
+  stopwords_fallback: en
+  min_tokens: 3
+  max_tokens: 4096
+  lang_detector: lid176
+  lid_model_path: data/model/lid.176.bin
+  lid_min_chars: 20
+
+  # sentence chunking
+  chunking_enabled: true
+  chunk_min_sentences: 4
+  chunk_max_sentences: 5
+  chunk_overlap_sentences: 0
+
+# Embedding.
+embed:
+  model: labse
+  custom_model_name: null
+  device: cpu
+  batch_size: 256
+  fp16: true
+  normalize: true
+  write_dtype: float16
+  stream_batch_docs: 2048
+  max_docs: null
+
+# Indexing.
+faiss:
+  enabled: true
+  metric: ip # ip | l2.
+  build_in_chunks: true
+  add_chunk_rows: 50000
+elastic:
+  enabled: false
+  host: http://localhost:9200
+  username: elastic
+  password: DfZP9TzO
+  api_key: TWw0aEs1a0JYdF9XMnNra3NDekI6S010NmhIWXUxWjVnTzJzX25fVjg5UQ==
+  verify_certs: false
+  backend: elasticsearch
+  dims: 768  # LaBSE/XLM-R = 768, sentence: 512.
+  similarity: cosine
+  knn_hnsw_m: 16
+  knn_ef_construction: 100
+  refresh: false
+  bulk_size: 1000
+
+# Query retrieval.
+retrieval:
+  method: faiss # faiss, elastic_dense, elastic_bm25, hybrid.
+  top_k: 20
+  hybrid_alpha: 0.5
+  query_language: null

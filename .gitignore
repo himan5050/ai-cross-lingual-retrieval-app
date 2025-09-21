@@ -154,8 +154,9 @@ venv.bak/
 # mkdocs documentation
 /site
 logs/
-shared-data-library/
-dataset/
+artifacts/
+data/
+
 pipelines/data/
 
 # mypy
